@@ -50,7 +50,6 @@ A comprehensive evaluation framework was used to assess both the utility (how we
     * A comprehensive framework was established to assess both generated datasets (`synthpop` and `LLM-based`).
     * **Data Utility:** Measured statistical accuracy and distributional similarity (e.g., comparing histograms, correlation matrices, and the performance of predictive models trained on real vs. synthetic data).
     * **Privacy:** Assessed using metrics like exact match detection and resilience against Membership Inference Attacks (MIAs), which try to determine if a specific individual's record was used in the training data. We specifically utilized the `sdmetrics` library for evaluations.
-        * []
 ---
 
 ## 2. Results
