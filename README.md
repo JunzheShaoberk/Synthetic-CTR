@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project focuses on generating high-quality synthetic data from the Cameroon Trauma Registry (CTR). The primary objective is to create datasets that retain statistical utility for analysis while maximizing privacy protection, enabling safer public sharing of valuable health information. We implemented and compared two distinct approaches:
+This project focuses on generating high-quality synthetic data from the Cameroon Trauma Registry (CTR). The primary objective is to create datasets that retain statistical utility for analysis while maximizing privacy protection, enabling safe public sharing of valuable health information. We implemented and compared two distinct approaches:
 
 1.  **Synthpop:** A traditional, machine learning-based method using sequential regression trees (implemented via the `synthpop` R package).
 2.  **LLM-based:** A novel Artificial Intelligence  approach utilizing fine-tuned Large Language Models (LLMs), partially inspired by the GReaT method.
@@ -11,20 +11,24 @@ A comprehensive evaluation framework was used to assess both the utility (how we
 
 ---
 
+**Given the promising privacy preservation metrics we've observed, this GitHub repository, with all original, sensitive data  removed, will be made publicly accessible. Note that replicating all evaluation results presented in this project requires access to the original Cameroon Trauma Registry data.**
+
+---
+
+
 ## 1. Key Highlights of Implementation
 
-* **Primary Goal:** To produce high-quality synthetic CTR data that maintains statistical utility while maximizing privacy protection for public sharing and analysis.
 
 * **Methods Compared:**
-    * **Synthpop:** Represents a well-established, relatively straightforward baseline statistical approach. It leverages sequential regression modeling (often using CART - Classification and Regression Trees) to generate synthetic data column by column. Its implementation is facilitated by a well-developed R package.
+    * **Synthpop:** Represents a well-established, relatively straightforward baseline statistical approach. It leverages sequential regression modeling (using CART) to generate synthetic data column by column. Its implementation is facilitated by a well-developed R package.
         * _[https://synthpop.org.uk/get-started.html]_
     * **LLM-based Method:** A novel approach using fine-tuned open-source LLMs (specifically Llama 3.1 in this implementation). This method involves converting tabular data into text, fine-tuning the model on this text, generating synthetic text, and converting it back to tabular data.
 
 * **Data Preparation:**
     * A specific subset of the CTR dataset was selected for this implementation to facilitate easier quality assessment.
-    * This subset included 2550 patient entries with non-missing values for the `inj_fractureclosed` variable.
+    * This subset included 2550 patient entries with non-missing values for trauma subtype.
     * A total of 52 variables, primarily demographic, were chosen based on having low rates of missing data.
-        * [`true_data_subset.csv`]
+        * [`true_data_subset.csv`] has been removed as this github repo is public.
 
 * **LLM-based Workflow Details:**
   ![workflow](./src/workflow.png)
@@ -56,13 +60,14 @@ A comprehensive evaluation framework was used to assess both the utility (how we
 * **Synthpop Performance:**
     * **Utility:** Demonstrated strong utility. It effectively preserved local data distributions (visualized via histograms) and pairwise variable correlations (visualized via heatmaps). Global data patterns were also well-maintained.
         * ![distribution plot](./src/distributions.png)
+        * ![distribution plot](./src/heatmap_synthpop.png)
     * Distinguishability tests (e.g., training a classifier to tell real from synthetic) showed an AUC of 0.52, indicating the synthetic data was statistically very close to the real data, bordering on hard to distinguish.
     * **Statistical Inference:** Regression models (e.g., predicting an outcome variable) built using the `synthpop` data yielded results very similar to models built using the original CTR data, indicating good preservation of statistical relationships. [`synthetic_data_generation.R`]
     * **Privacy:** While `synthpop` successfully avoided generating exact duplicates of real records (a minimum privacy requirement), potential risks for inference attacks remain due to its model-based nature, which explicitly tries to capture data relationships. 
 
 * **LLM-based Method Performance:**
     * **Utility:** Also preserved most data structures and relationships effectively (checked via histograms and heatmaps). However, it showed slightly lower fidelity in replicating exact pairwise correlations and the fit of regression models compared to `synthpop`.[`synthetic_data_generation.R`]
-        * ![distribution plot](./src/heatmap_synthpop.png)
+
         * ![distribution plot](./src/heatmap_LLM.png)
     * **Quantitative Utility Metrics:** Achieved a Propensity Mean Squared Error (PMSE) of 0.1599 and a Nearest Neighbour Adversarial Accuracy (NNAA) of 0.8494, indicating reasonable (though not perfect) data utility according to these standard metrics.[`synthetic_sdmetrics.ipynb`]
     * **Privacy:** Provided demonstrably superior privacy protection compared to `synthpop`. This enhanced privacy is attributed partly to the inherent complexity and "black-box" nature of large language models, making it harder to reverse-engineer specific training data points.
