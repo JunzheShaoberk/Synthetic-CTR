@@ -43,8 +43,7 @@ A comprehensive evaluation framework was used to assess both the utility (how we
     4.  **De-serialization (Text to Table):**
         * The generated text descriptions were parsed back into a structured tabular format, creating the synthetic dataset.
             * Generated predictions/synthetic dataset: [`generated_predictions.json`]
-            * 
-            * 
+            * [`deserialization.py`]
 
 * **Evaluation Framework:**
     * A comprehensive framework was established to assess both generated datasets (`synthpop` and `LLM-based`).
