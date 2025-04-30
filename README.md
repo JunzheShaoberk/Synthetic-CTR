@@ -81,11 +81,10 @@ A comprehensive evaluation framework was used to assess both the utility (how we
 * **Effectiveness:** Both `synthpop` and the LLM-based method are viable and effective techniques for generating synthetic versions of the Cameroon Trauma Registry data.
 
 * **Trade-off:** The primary finding is a clear trade-off between statistical fidelity (utility) and privacy protection between the two methods.
-    * **Synthpop:** Excels in accurately replicating the statistical properties of the original data but carries inherent privacy risks associated with methods that explicitly model data distributions.
-    * **LLM-based Method:** Offers substantially improved privacy guarantees, particularly against sophisticated attacks like Membership Inference Attacks. This makes it a more robust choice when privacy is the paramount concern, albeit with a slight reduction in statistical accuracy compared to `synthpop`.
+    * **Synthpop:** Excels in accurately replicating the statistical properties of the original data but has privacy risks associated due to CART methods.
+    * **LLM-based Method:** Offers substantially improved privacy guarantees, particularly against attacks like Membership Inference Attacks. This makes it a more robust choice when privacy is the major concern.
+* **Controlling the Trade-off:** The study suggests that for LLM-based methods, factors like the number of fine-tuning epochs can influence the trade-off between utility and privacy. Fine-tuning for too long might increase fidelity but potentially leak more private information, requiring careful calibration.
 
-* **Controlling the Trade-off:** The study suggests that for LLM-based methods, factors like the number of fine-tuning epochs can influence the balance between utility and privacy. Fine-tuning for too long might increase fidelity but potentially leak more private information (overfitting), requiring careful calibration.
-
-* **Future Potential:** The LLM-based method demonstrates significant potential as an advanced technique for creating safe, shareable synthetic health datasets. Further investigation, optimization (e.g., exploring different LLM architectures, fine-tuning strategies, serialization techniques), and validation on diverse datasets are warranted.
+* **Future Potential:** The LLM-based method demonstrates significant potential as an advanced technique for creating safe, shareable synthetic health datasets. Further research inlcudes optimization (e.g., exploring different LLM architectures, fine-tuning strategies, serialization techniques), and validation on diverse datasets.
 
 ---
